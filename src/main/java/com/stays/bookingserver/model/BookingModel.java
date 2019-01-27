@@ -73,7 +73,7 @@ public class BookingModel extends CommonModel {
 	private String convenienceAmtWgst;
 	
 	@JsonProperty("bookingVsRooms")
-	private List<BookingVsRoomModel> bookingVsRooms;
+	private List<BookingVsRoomModel> bookingVsRoomModels;
 	
 	@JsonProperty("bookingVsPayments")
 	private List<BookingVsPaymentModel> bookingVsPaymentModels;
@@ -87,6 +87,9 @@ public class BookingModel extends CommonModel {
 	// Use to Call Booking Server Internally
 	@JsonProperty("accomodationType")
 	private String accomodationType;
+	
+	@JsonProperty("returnURL")
+	private String returnURL;
 }
 
 

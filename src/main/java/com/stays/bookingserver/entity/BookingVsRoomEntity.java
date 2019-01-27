@@ -32,11 +32,11 @@ public class BookingVsRoomEntity extends CommonEntity {
 	@Column(name = "booking_vs_room_id")
 	@JsonProperty("bookingVsRoomId")
 	private Long bookingVsRoomId;
-	
+
 	@Column(name = "ora_room_name")
 	@JsonProperty("oraRoomName")
 	private String oraRoomName;
-	
+
 	@Column(name = "room_id")
 	@JsonProperty("roomId")
 	private String roomId;
@@ -52,7 +52,7 @@ public class BookingVsRoomEntity extends CommonEntity {
 	@Column(name = "host_price")
 	@JsonProperty("hostPrice")
 	private String hostPrice;
-	
+
 	@Column(name = "ora_mark_up")
 	@JsonProperty("oraMarkUp")
 	private String oraMarkUp;
@@ -64,11 +64,11 @@ public class BookingVsRoomEntity extends CommonEntity {
 	@Column(name = "ora_discount")
 	@JsonProperty("oraDiscount")
 	private String oraDiscount;
-	
+
 	@Column(name = "ora_final_price")
 	@JsonProperty("oraFinalPrice")
 	private String oraFinalPrice;
-	
+
 	@Column(name = "sgst")
 	@JsonProperty("sgst")
 	private String sgst;
@@ -80,11 +80,11 @@ public class BookingVsRoomEntity extends CommonEntity {
 	@Column(name = "igst")
 	@JsonProperty("igst")
 	private String igst;
-	
+
 	@Column(name = "gst_amt")
 	@JsonProperty("gstAmt")
 	private String gstAmt;
-	
+
 	@Column(name = "total_amt")
 	@JsonProperty("totalAmt")
 	private String totalAmt;
@@ -92,7 +92,7 @@ public class BookingVsRoomEntity extends CommonEntity {
 	@Column(name = "num_of_adult")
 	@JsonProperty("numOfAdult")
 	private String numOfAdult;
-	
+
 	@Column(name = "num_of_child")
 	@JsonProperty("numOfChild")
 	private String numOfChild;
@@ -100,16 +100,15 @@ public class BookingVsRoomEntity extends CommonEntity {
 	@Column(name = "num_of_cot")
 	@JsonProperty("numOfCot")
 	private String numOfCot;
-	
+
 	@Column(name = "num_of_shared_bed")
 	@JsonProperty("numOfSharedBed")
 	private String numOfSharedBed;
-	
+
 	@Column(name = "num_of_shared_cot")
 	@JsonProperty("numOfSharedCot")
 	private String numOfSharedCot;
-	
-	
+
 	@ManyToOne(fetch = FetchType.LAZY, cascade = { CascadeType.MERGE })
 	@JoinColumn(name = "booking_id", nullable = false)
 	@JsonProperty("bookings")
@@ -120,16 +119,10 @@ public class BookingVsRoomEntity extends CommonEntity {
 	@JsonProperty("sacCodes")
 	private SacCodeEntity sacCodeEntity;
 
-	@Column(name = "room_vs_offer_id")
-	@JsonProperty("roomVsOfferId")
-	private String roomVsOfferId;
-	
-	
 	@OneToOne(fetch = FetchType.LAZY, mappedBy = "bookingVsRoomEntity", cascade = { CascadeType.ALL })
 	@JsonProperty("cancellationVsRooms")
 	private CancellationVsRoomEntity cancellationVsRoomEntity;
 
-	
 	@Override
 	public String toString() {
 		return Long.toString(bookingVsRoomId);

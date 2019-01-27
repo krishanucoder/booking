@@ -21,7 +21,7 @@ public class ApplicationConfig {
         return new Docket(DocumentationType.SWAGGER_2)
                 .apiInfo(getApiInfo())
                 .select()
-                .apis(RequestHandlerSelectors.basePackage("com.orastays.booking.bookingserver.controller"))
+                .apis(RequestHandlerSelectors.basePackage("com.stays.bookingserver.controller"))
                 .paths(PathSelectors.any())
                 .build();
     }

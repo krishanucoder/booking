@@ -49,7 +49,7 @@ public class BookingEntity extends CommonEntity {
 	@Column(name = "property_loc")
 	@JsonProperty("propertyLoc")
 	private String propertyLoc;
-	
+
 	@Column(name = "checkin_date")
 	@JsonProperty("checkinDate")
 	private String checkinDate;
@@ -61,15 +61,15 @@ public class BookingEntity extends CommonEntity {
 	@Column(name = "num_of_days")
 	@JsonProperty("numOfDays")
 	private String numOfDays;
-	
+
 	@Column(name = "user_final_price")
 	@JsonProperty("userFinalPrice")
 	private String userFinalPrice;
-	
+
 	@Column(name = "ora_special_offer_perc")
 	@JsonProperty("oraSpecialOfferPerc")
 	private String oraSpecialOfferPerc;
-	
+
 	@Column(name = "ora_special_offer_amt")
 	@JsonProperty("oraSpecialOfferAmt")
 	private String oraSpecialOfferAmt;
@@ -81,7 +81,7 @@ public class BookingEntity extends CommonEntity {
 	@Column(name = "convenience_fee_amt")
 	@JsonProperty("convenienceFeeAmt")
 	private String convenienceFeeAmt;
-	
+
 	@Column(name = "convenience_gst_amt")
 	@JsonProperty("convenienceGstAmt")
 	private String convenienceGstAmt;
@@ -90,37 +90,38 @@ public class BookingEntity extends CommonEntity {
 	@JsonProperty("totalPrice")
 	private String totalPrice;
 
-	
 	@OneToOne(fetch = FetchType.LAZY, mappedBy = "bookingEntity", cascade = { CascadeType.ALL })
 	@JsonProperty("bookingInfos")
 	private BookingInfoEntity bookingInfoEntity;
-	
+
 	@Column(name = "booking_approval")
 	@JsonProperty("bookingApproval")
 	private String bookingApproval;
-	
+
 	@Column(name = "convenience_amt_wgst")
 	@JsonProperty("convenienceAmtWgst")
 	private String convenienceAmtWgst;
-	
-	
+
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "bookingEntity", cascade = { CascadeType.ALL })
 	@JsonProperty("bookingVsRooms")
 	private List<BookingVsRoomEntity> bookingVsRoomEntities;
-	
+
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "bookingEntity", cascade = { CascadeType.ALL })
 	@JsonProperty("bookingVsPayments")
 	private List<BookingVsPaymentEntity> bookingVsPaymentEntities;
-	
+
 	@OneToOne(fetch = FetchType.LAZY, mappedBy = "bookingEntity", cascade = { CascadeType.ALL })
 	@JsonProperty("cancellations")
 	private CancellationEntity cancellationEntity;
-	
+
 	@Column(name = "accomodation_type")
 	@JsonProperty("accomodationType")
 	private String accomodationType;
-	
-	
+
+	@Column(name = "return_url")
+	@JsonProperty("returnURL")
+	private String returnURL;
+
 	@Override
 	public String toString() {
 		return Long.toString(bookingId);
