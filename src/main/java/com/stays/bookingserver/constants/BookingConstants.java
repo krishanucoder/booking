@@ -37,4 +37,12 @@ public interface BookingConstants {
 	// refund note during concurrency
 	public static final String REFUND_CONCURRENT_BOOKING_NOTE = "Rooms are already booked. Refunding the booking amount.";
 	public static final String USER_CANCELLED_BOOKING_IN_GATEWAY = "User cancelled booking in payment gateway";
+	
+	
+	//payment status cashfree
+	public static final String SUCCESS = "SUCCESS";
+	public static final String FLAGGED = "FLAGGED";
+	public static final String PENDING = "PENDING";
+	public static final String FAILED = "FAILED";
+	public static final String CANCELLED = "CANCELLED";
 }

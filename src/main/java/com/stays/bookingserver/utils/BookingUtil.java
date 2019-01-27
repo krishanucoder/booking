@@ -71,6 +71,7 @@ public class BookingUtil extends BaseUtil {
 			return bookingEntity2;
 		} catch (Exception e) {
 			// throw new FormExceptions(exceptions)
+			e.printStackTrace();
 			exceptions.put(genericErrorCode, new Exception(genericErrorMessage));
 			throw new FormExceptions(exceptions);
 		}

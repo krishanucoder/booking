@@ -9,6 +9,7 @@ import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import com.itextpdf.text.pdf.PdfStructTreeController.returnType;
 import com.stays.bookingserver.constants.AccommodationType;
 import com.stays.bookingserver.constants.BookingConstants;
 import com.stays.bookingserver.constants.BookingStatus;
@@ -59,9 +60,9 @@ public class RoomUpdateAfterGatewayPayment {
 	@Autowired
 	protected CancellationVsRoomDAO cancellationVsRoomDAO;
 
-	public synchronized void checkRoomStatusAndBookOrRefund(Map<String, String> paramMap) {
+	public synchronized String checkRoomStatusAndBookOrRefund(Map<String, String> paramMap) {
 		logger.info("checkRoomStatusAndBookOrRefund -- START");
-
+		
 		List<BookingVsRoomEntity> bookingVsRoomEntities = new CopyOnWriteArrayList<>();
 
 		BookingVsPaymentEntity bookingVsPaymentEntity = bookingVsPaymentService
@@ -131,9 +132,11 @@ public class RoomUpdateAfterGatewayPayment {
 				bookingDAO.update(bookingEntity);
 			} else {
 				logger.info("customer changed the order amount");
+				
 			}
 		}
 		logger.info("checkRoomStatusAndBookOrRefund -- END");
+		return bookingEntity.getSuccessURL();
 	}
 
 	// initiate refund and update booking master, bookingVsRoom, bookingVsPayment

@@ -55,31 +55,31 @@ public class NotifyServiceImpl implements NotifyService {
 	protected RoomUpdateAfterGatewayPayment roomUpdateAfterGatewayPayment;
 
 	@Override
-	public void updateBookingStatus(Map<String, String> paramMap) {
+	public String updateBookingStatus(Map<String, String> paramMap) {
 		logger.info("updateBookingStatus -- START");
-
-		if (paramMap.get(BookingConstants.txStatus).equals("SUCCESS")) {
+		String url = "";
+		if (paramMap.get(BookingConstants.txStatus).equalsIgnoreCase(BookingConstants.SUCCESS)) {
 			// validate booking and initiate refund if already room booked
-			roomUpdateAfterGatewayPayment.checkRoomStatusAndBookOrRefund(paramMap);
+			url = roomUpdateAfterGatewayPayment.checkRoomStatusAndBookOrRefund(paramMap);
 
-		} else if (paramMap.get(BookingConstants.txStatus).equals("FLAGGED")) {
+		} else if (paramMap.get(BookingConstants.txStatus).equalsIgnoreCase(BookingConstants.FLAGGED)) {
 
-		} else if (paramMap.get(BookingConstants.txStatus).equals("PENDING")) {
+		} else if (paramMap.get(BookingConstants.txStatus).equalsIgnoreCase(BookingConstants.PENDING)) {
 
-		} else if (paramMap.get(BookingConstants.txStatus).equals("FAILED")) { // successful but kept on hold by risk
+		} else if (paramMap.get(BookingConstants.txStatus).equalsIgnoreCase(BookingConstants.FAILED)) { // successful but kept on hold by risk
 																				// system
-			updateBookingOnFaliureOrCancelled(paramMap);
-		} else if (paramMap.get(BookingConstants.txStatus).equals("CANCELLED")) {
-			updateBookingOnFaliureOrCancelled(paramMap);
+			url = updateBookingOnFaliureOrCancelled(paramMap);
+		} else if (paramMap.get(BookingConstants.txStatus).equalsIgnoreCase(BookingConstants.CANCELLED)) {
+			url = updateBookingOnFaliureOrCancelled(paramMap);
 		}
 
 		logger.info("updateBookingStatus -- END");
-
+		return url;
 	}
 
-	public void updateBookingOnFaliureOrCancelled(Map<String, String> paramMap) {
+	public String updateBookingOnFaliureOrCancelled(Map<String, String> paramMap) {
 		logger.info("updateBookingOnFaliureOrCancelled -- START");
-
+		String returnUrl = null;
 		BookingVsPaymentEntity bookingVsPaymentEntity = bookingVsPaymentService
 				.getBookingVsPaymentEntityByOrderId(paramMap.get(BookingConstants.orderId));
 
@@ -101,6 +101,8 @@ public class NotifyServiceImpl implements NotifyService {
 
 			BookingEntity bookingEntity = bookingDAO.find(bookingVsPaymentEntity.getBookingEntity().getBookingId());
 
+			returnUrl = bookingEntity.getFailureURL();
+			
 			bookingEntity.setModifiedBy(bookingEntity.getCreatedBy());
 			bookingEntity.setModifiedDate(Util.getCurrentDateTime());
 			bookingEntity.setStatus(BookingStatus.CANCELLED.ordinal());
@@ -155,12 +157,15 @@ public class NotifyServiceImpl implements NotifyService {
 					bpe.setStatus(PaymentStatus.CANCELLED.ordinal());
 					bookingVsPaymentDAO.update(bpe);
 				}
+				
 			});
+			
 
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 
 		logger.info("updateBookingOnFaliureOrCancelled -- END");
+		return returnUrl;
 	}
 }

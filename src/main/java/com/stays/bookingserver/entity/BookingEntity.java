@@ -118,10 +118,14 @@ public class BookingEntity extends CommonEntity {
 	@JsonProperty("accomodationType")
 	private String accomodationType;
 
-	@Column(name = "return_url")
-	@JsonProperty("returnURL")
-	private String returnURL;
-
+	@Column(name = "failure_url")
+	@JsonProperty("failureURL")
+	private String failureURL;
+	
+	@Column(name = "success_url")
+	@JsonProperty("successURL")
+	private String successURL;
+	
 	@Override
 	public String toString() {
 		return Long.toString(bookingId);
